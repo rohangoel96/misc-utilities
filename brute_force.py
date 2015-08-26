@@ -31,5 +31,5 @@ for password in pass_combos:
 	logincheck = logged_in.read()  		#reading the page body that is redirected after successful login  
 	print 'User :'+username+"\nPassoword tried :"+''.join(password)+"\n Status: "+logincheck 	#printing the body of the redirected url after login   
 	 
- 	#req = br.open("http://school.dwit.edu.np/mod/assign/").read()  #accessing other url(s) after login is done this way
+ 	#req = br.open("http://www.tandomsite.com/redirect_url").read()  #accessing other url(s) after login is done this way
 
