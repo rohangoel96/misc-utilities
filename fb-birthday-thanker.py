@@ -11,7 +11,7 @@ TODO:
 '''
 
 #facebook user access token here with extented permissions to post | https://developers.facebook.com/tools/explorer
-token='CAACEdEose0cBAOvY3wkrYHASp9ol2ZAFPmDZABXvaC0PGc3fvNDsIA2Ywajfd0OapkjBgW1RMQ6X86omE7HW7I0nebkGEBFJCX7OiFZBWXM0Ugi81p10ZA1ndo7pY0Krbt0wcH3L88N0uRoh6zHRgsZB6ZAleiyAbMlj2iOh6HZBcdrj4n2yAXmcz8JELCpRSqSc8I3Jk1dq1i8YxhgGQOj' 
+token='----' # enter your token here ^^^ 
 facebook=fb.graph.api(token)
 graph = GraphAPI(token)
 since_date = "1391212800" #unix time stamp for the time since when you want the posts to be commented
