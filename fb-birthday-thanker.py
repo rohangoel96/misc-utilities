@@ -3,7 +3,7 @@ import fb                     #To install this package run: sudo pip install fb
 from facepy import GraphAPI   #To install this package run: sudo pip install facepy
 
 #facebook user access token here with extented permissions to post | https://developers.facebook.com/tools/explorer
-token='------' 
+token='' 
 facebook=fb.graph.api(token)
 graph = GraphAPI(token)
 since_date = "1391212800" #unix time stamp
@@ -42,7 +42,7 @@ def ThankAndLike():
               facebook.publish(cat="comments",id=p_id,message=mess) #Comments on each post
               facebook.publish(cat="likes",id=p_id)                 #Likes each post
               count=count+1
-              print("Notification number:"+str(count)+" on www.facebook.com/"+str(p_id).split('_')[0]+"/posts/"+str(p_id).split('_')[1])
+              print("Notification number"+str(count)+" : on www.facebook.com/"+str(p_id).split('_')[0]+"/posts/"+str(p_id).split('_')[1])
         else: 
               print("Not that many posts available")
     else :
