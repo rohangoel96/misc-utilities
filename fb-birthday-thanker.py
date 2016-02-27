@@ -1,21 +1,31 @@
 import json
 import fb                     #To install this package run: sudo pip install fb
 from facepy import GraphAPI   #To install this package run: sudo pip install facepy
+import datetime
+
+'''
+TODO:
+  - Search the post for string 'happy' and then only post bday wishes
+  - Tag friends instead of just putting the names.
+
+'''
 
 #facebook user access token here with extented permissions to post | https://developers.facebook.com/tools/explorer
-token='' 
+token='CAACEdEose0cBAOvY3wkrYHASp9ol2ZAFPmDZABXvaC0PGc3fvNDsIA2Ywajfd0OapkjBgW1RMQ6X86omE7HW7I0nebkGEBFJCX7OiFZBWXM0Ugi81p10ZA1ndo7pY0Krbt0wcH3L88N0uRoh6zHRgsZB6ZAleiyAbMlj2iOh6HZBcdrj4n2yAXmcz8JELCpRSqSc8I3Jk1dq1i8YxhgGQOj' 
 facebook=fb.graph.api(token)
 graph = GraphAPI(token)
-since_date = "1391212800" #unix time stamp
+since_date = "1391212800" #unix time stamp for the time since when you want the posts to be commented
+readable_since_date = datetime.datetime.fromtimestamp(int(since_date)).strftime('%Y-%m-%d %H:%M:%S')
 
 def getComment(id):
 
     query = id+'?fields=message,from'
     result = graph.get(query)
     commentor_name = result['from']['name']
+    commentor_id = result['from']['id']
     comment = 'Thank You ' + commentor_name +' :)'
 
-    print "\nPost : " + result['message'].split('\n')[0] #prints only the first line of post
+    print "\nPost    : " + result['message'].split('\n')[0] #prints only the first line of post
     print "Comment : " + comment 
     return comment
 
@@ -27,22 +37,20 @@ def ThankAndLike():
     
     idlist=[x['id'] for x in result['data']] #post id's of all the posts in the time-frame
     idlist.reverse() #order it from recent to old
-    print("There are "+ str(len(idlist)) +" posts since "+since_date)
+    print("There are "+ str(len(idlist)) +" posts since "+readable_since_date)
     
-    char1=raw_input("Are you sure you want to comment? (y/n) ")
+    char1=raw_input("Are you sure you want to comment and like the posts? (y/n) ")
     count=0
     if char1=='y':
-        nos=input("Enter number of posts to be commented ")
+        nos=input("Enter number of latest posts to be commented and liked : ")
         
         if nos<=len(idlist):
            for p_id in (idlist[(len(idlist)-nos):]):
               mess = getComment (p_id)
-              print p_id
-              print mess
               facebook.publish(cat="comments",id=p_id,message=mess) #Comments on each post
               facebook.publish(cat="likes",id=p_id)                 #Likes each post
               count=count+1
-              print("Notification number"+str(count)+" : on www.facebook.com/"+str(p_id).split('_')[0]+"/posts/"+str(p_id).split('_')[1])
+              print("Notification "+str(count)+" : www.facebook.com/"+str(p_id).split('_')[0]+"/posts/"+str(p_id).split('_')[1])
         else: 
               print("Not that many posts available")
     else :
